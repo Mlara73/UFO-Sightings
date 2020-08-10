@@ -40,11 +40,27 @@ function filterDate(){
 
     // select input value reference
     var inputDateReference = d3.select("#datetime");
+    var inputCityReference = d3.select("#city");
+    var inputStateReference = d3.select("#state");
+    var inputCountryReference = d3.select("#country");
+    var inputShapeReference = d3.select("#shape");
 
-    // selecT input
+    // select input
     var inputDate = inputDateReference.property("value");
     inputDateFormatted = String(inputDate);
     console.log(inputDate);
+    //city
+    var inputCity = inputCityReference.property("value").toLowerCase();
+    console.log(inputCity);
+    //state
+    var inputState = inputStateReference.property("value").toLowerCase();
+    console.log(inputState);
+    // country
+    var inputCountry = inputCountryReference.property("value").toLowerCase();
+    console.log(inputCountry);
+    //shape
+    var inputShape = inputShapeReference.property("value").toLowerCase();
+    console.log(inputShape);
 
     //filter inputDate against tableData
     var filterDatesArray = tableData.filter(ufoElem => ufoElem.datetime === inputDateFormatted);
