@@ -63,7 +63,7 @@ function filterDate(){
     });
 };
 
-//reset the searchf form
+//reset the search form
 function resetSearch(){
     // Prevent the page from refreshing
     d3.event.preventDefault();
@@ -71,10 +71,10 @@ function resetSearch(){
     // reset the form
     document.getElementById("form-id").reset();
 
-    // wipe out the tbody to be able to write out new table
+    // remove tbody to be able to insert a new table
     tbody.html("");
 
-    // fill in observations only where date matches user input
+    // For Each Loop to iterate over the tableData array
     tableData.forEach(ufoItem => {
         // console.log(ufoItem);
         var row = tbody.append("tr");
