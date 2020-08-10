@@ -27,7 +27,7 @@ var resetButton = d3.select("#reset-btn");
 //attach events
 
 filterButton.on("click", filterDate);
-filterForm.on("submit",filterDate);
+filterForm.on("change",filterDate);
 resetButton.on("click", resetSearch);
 
 // filterDate event function
@@ -62,21 +62,31 @@ function filterDate(){
     var inputShape = inputShapeReference.property("value").toLowerCase();
     console.log(inputShape);
 
-    //filter inputDate against tableData
-    var filterDatesArray = tableData.filter(ufoElem => ufoElem.datetime === inputDateFormatted);
-    console.log(filterDatesArray);
+    //the filter is apply  whether the user has entered a filter manually
+    if(inputDate || inputCity || inputState || inputCountry || inputShape){
 
-    filterDatesArray.forEach(ufoNewItem => {
-        // console.log(ufoItem);
-        var newRow = tbody.append("tr");
+        // verify only available conditions entered as inputs
+       var inputArray = [["datetime", inputDateFormatted], ["city", inputCity], ["state", inputState], ["country", inputCountry], ["shape", inputShape]];
+       var currentArray = inputArray.filter(user => user[1] !== "");
+       var conditionArray = currentArray.map(ufoElem => "ufoElem." + ufoElem[0] + " === " + "'" + ufoElem[1] + "'").join(" && ");
+       console.log(currentArray);
+       console.log(conditionArray);
+
+        var filterArray = tableData.filter(ufoElem => eval(conditionArray));
+
+        tbody.html(" ");
+
+        filterArray.forEach(ufoNewItem => {
+            var newRow = tbody.append("tr");
         
-        // iterate over each object value
+            // iterate over each object value
     
-        Object.values(ufoNewItem).forEach(newValue => {
-            var cell = newRow.append("td");
-            cell.text(newValue)
+            Object.values(ufoNewItem).forEach(newValue => {
+                var cell = newRow.append("td");
+                cell.text(newValue)
+            });
         });
-    });
+    };
 };
 
 //reset the searchf form
